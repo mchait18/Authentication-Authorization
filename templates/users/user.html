@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} User Page {% endblock%}
+{% block content %}
+
+<h4 class="display-4">{{user.first_name}} {{user.last_name}}</h4>
+
+<p class="lead">
+<p> Username: {{user.username}}</p>
+<p> First Name: {{user.first_name}}</p>
+<p> Last Name: {{user.last_name}}</p>
+<p> Email Address: {{user.email}}</p>
+</p>
+<form style="display:inline;" action="/users/{{user.username}}/delete" method="POST">
+    <button class="btn btn-sm btn-danger">Delete User</button>
+</form>
+<br><br>
+<h4 class="display-4">Feedback</h4>
+<div>
+    {% for fb in feedback %}
+    <div class="card my-4">
+        <div class="card-body">
+            <h5 class="card-title text-info">
+                <a href="/feedback/{{fb.id}}/update">{{fb.title}}</a>
+                <form style="display:inline;" action="/feedback/{{fb.id}}/delete" method="POST">
+                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                </form>
+            </h5>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Subtitle </h6> -->
+            <p class="card-text">
+                {{fb.content}}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+    <a href="/users/{{user.username}}/feedback/add" class="btn btn-success">Add Feedback</a>
+
+</div>
+
+{% endblock %}
